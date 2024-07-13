@@ -15,3 +15,7 @@ export type ILoginUserResponse = {
   refreshToken?: string
   needsPasswordChange: boolean
 }
+
+export type IRegisterUserResponse = {
+  email: string
+}

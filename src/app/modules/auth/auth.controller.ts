@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { AuthService } from './auth.service'
 import config from '../../../config'
 import sendResponse from '../../../shared/sendResponse'
-import { ILoginUserResponse } from './auth.interface'
+import { ILoginUserResponse, IRegisterUserResponse } from './auth.interface'
 
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const { ...loginData } = req.body
@@ -30,10 +30,10 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
   const { ...registerData } = req.body
   const result = await AuthService.registerUser(registerData)
 
-  sendResponse<ILoginUserResponse>(res, {
+  sendResponse<IRegisterUserResponse>(res, {
     statusCode: 201,
     success: true,
-    message: 'User registered in successfully !',
+    message: 'User registered successfully!',
     data: result,
   })
 })

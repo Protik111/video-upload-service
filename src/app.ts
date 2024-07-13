@@ -16,6 +16,13 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/v1', routes)
 
+//health route
+app.use((req: Request, res: Response) => {
+  res.status(httpStatus.OK).json({
+    health: 'Ok',
+  })
+})
+
 //global error handler
 app.use(globalErrorHandler)
 

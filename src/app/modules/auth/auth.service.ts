@@ -51,7 +51,9 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   }
 }
 
-const registerUser = async (payload: IRegisterUser): Promise<User> => {
+const registerUser = async (
+  payload: IRegisterUser,
+): Promise<Pick<User, 'email'>> => {
   const { firstName, lastName, email, password } = payload
 
   const isUserExist = await prisma.user.findFirst({
@@ -68,6 +70,9 @@ const registerUser = async (payload: IRegisterUser): Promise<User> => {
 
   const user = await prisma.user.create({
     data: { firstName, lastName, email, password: hashedPassword },
+    select: {
+      email: true,
+    },
   })
 
   if (!user) {
