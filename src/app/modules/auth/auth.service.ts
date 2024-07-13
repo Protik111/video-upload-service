@@ -7,48 +7,50 @@ import ApiError from '../../../errors/ApiError'
 import prisma from '../../../shared/prisma'
 import { hashing } from '../../../helpers/hashing'
 import { User } from '@prisma/client'
+import { isUser } from '../../../shared/isUser'
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
-  const { firstName, lastName, email, password } = payload
+  const { email, password } = payload
 
-  // creating instance of User
-  const user = new User()
-  // access to our instance methods
-  const isUserExist = await user.isUserExist(id)
+  const user = await isUser.findUserByEmail(email)
 
-  // const isUserExist = await User.isUserExist(id)
-
-  if (!isUserExist) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist')
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Credentials')
   }
 
   if (
-    isUserExist.password &&
-    !(await User.isPasswordMatched(password, isUserExist.password))
+    typeof user !== 'boolean' &&
+    user.password &&
+    !(await hashing.isPasswordMatched(password, user.password))
   ) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect')
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Credentials')
   }
 
   //create access token & refresh token
+  if (typeof user !== 'boolean') {
+    const { id: userId } = user
+    const accessToken = jwtHelpers.createToken(
+      { userId, email },
+      config.jwt.secret as Secret,
+      config.jwt.expires_in as string,
+    )
 
-  const { id: userId, role, needsPasswordChange } = isUserExist
-  const accessToken = jwtHelpers.createToken(
-    { userId, role },
-    config.jwt.secret as Secret,
-    config.jwt.expires_in as string,
-  )
+    const refreshToken = jwtHelpers.createToken(
+      { userId, email },
+      config.jwt.refresh_secret as Secret,
+      config.jwt.refresh_expires_in as string,
+    )
 
-  const refreshToken = jwtHelpers.createToken(
-    { userId, role },
-    config.jwt.refresh_secret as Secret,
-    config.jwt.refresh_expires_in as string,
-  )
-
-  return {
-    accessToken,
-    refreshToken,
-    needsPasswordChange,
+    return {
+      accessToken,
+      refreshToken,
+    }
   }
+
+  throw new ApiError(
+    httpStatus.INTERNAL_SERVER_ERROR,
+    'An unexpected error occurred',
+  )
 }
 
 const registerUser = async (
@@ -56,11 +58,7 @@ const registerUser = async (
 ): Promise<Pick<User, 'email'>> => {
   const { firstName, lastName, email, password } = payload
 
-  const isUserExist = await prisma.user.findFirst({
-    where: {
-      email,
-    },
-  })
+  const isUserExist = await isUser.isUserExists(email)
 
   if (isUserExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'User already exists')

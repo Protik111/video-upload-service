@@ -8,12 +8,15 @@ const generateHash = async (
   return bcrypt.hash(payload, salt)
 }
 
-const hashMatched = async (raw: string, hash: string): Promise<boolean> => {
+const isPasswordMatched = async (
+  raw: string,
+  hash: string,
+): Promise<boolean> => {
   const result = await bcrypt.compare(raw, hash)
   return result
 }
 
 export const hashing = {
   generateHash,
-  hashMatched,
+  isPasswordMatched,
 }
