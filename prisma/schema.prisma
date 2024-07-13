@@ -18,8 +18,11 @@ model User {
   firstName String
   lastName  String
   email     String
+  role      Role     @default(user)
+  gender    String
   password  String
   createdAt DateTime @default(now())
+  videos    Video[]
 
   @@map("users")
 }
@@ -31,5 +34,14 @@ model Video {
   filePath    String
   createdAt   DateTime @default(now())
 
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
   @@map("videos")
+}
+
+enum Role {
+  user
+  admin
+  moderator
 }

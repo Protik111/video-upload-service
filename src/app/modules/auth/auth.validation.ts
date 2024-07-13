@@ -29,6 +29,12 @@ const registerZodSchema = z.object({
     password: z.string({
       required_error: 'Password is required',
     }),
+    role: z.string({
+      required_error: 'Role Name is required',
+    }),
+    gender: z.string({
+      required_error: 'Last Name is required',
+    }),
   }),
 })
 

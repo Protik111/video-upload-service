@@ -8,6 +8,8 @@ export type IRegisterUser = {
   lastName: string
   email: string
   password: string
+  role: 'user' | 'admin' | 'Moderator'
+  gender: string
 }
 
 export type ILoginUserResponse = {
