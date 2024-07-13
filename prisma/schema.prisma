@@ -23,3 +23,13 @@ model User {
 
   @@map("users")
 }
+
+model Video {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  filePath    String
+  createdAt   DateTime @default(now())
+
+  @@map("videos")
+}
