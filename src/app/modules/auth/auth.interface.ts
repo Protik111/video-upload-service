@@ -1,4 +1,9 @@
 export type ILoginUser = {
+  email: string
+  password: string
+}
+
+export type IRegisterUser = {
   firstName: string
   lastName: string
   email: string

@@ -1,8 +1,12 @@
 import httpStatus from 'http-status'
-import { ILoginUser, ILoginUserResponse } from './auth.interface'
+import { ILoginUser, ILoginUserResponse, IRegisterUser } from './auth.interface'
 import { jwtHelpers } from '../../../helpers/jwtHelpers'
 import config from '../../../config'
 import { Secret } from 'jsonwebtoken'
+import ApiError from '../../../errors/ApiError'
+import prisma from '../../../shared/prisma'
+import { hashing } from '../../../helpers/hashing'
+import { User } from '@prisma/client'
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { firstName, lastName, email, password } = payload
@@ -47,6 +51,33 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   }
 }
 
+const registerUser = async (payload: IRegisterUser): Promise<User> => {
+  const { firstName, lastName, email, password } = payload
+
+  const isUserExist = await prisma.user.findFirst({
+    where: {
+      email,
+    },
+  })
+
+  if (isUserExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User already exists')
+  }
+
+  const hashedPassword = await hashing.generateHash(password)
+
+  const user = await prisma.user.create({
+    data: { firstName, lastName, email, password: hashedPassword },
+  })
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to register user')
+  }
+
+  return user
+}
+
 export const AuthService = {
   loginUser,
+  registerUser,
 }

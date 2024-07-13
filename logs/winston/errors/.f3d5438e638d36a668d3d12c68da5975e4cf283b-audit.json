@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\.f3d5438e638d36a668d3d12c68da5975e4cf283b-audit.json",
+    "files": [
+        {
+            "date": 1720858807475,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-13-07-14-error.log",
+            "hash": "5be6285cee030f3b32608e48fe6cf9d0c908b2c4d24ef2259bf2f3ba6447b622"
+        },
+        {
+            "date": 1720861557428,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-13-07-15-error.log",
+            "hash": "0217f2fb4deabe6e64baa8d43171621a7b7859ef1bbb780235fc129b8054c750"
+        }
+    ],
+    "hashType": "sha256"
+}

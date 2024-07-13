@@ -1,17 +1,17 @@
 import { z } from 'zod'
 
-const loginZodSchema = z.object({
+const registerZodSchema = z.object({
   body: z.object({
-    firstName: z
+    email: z
       .string({
         required_error: 'First Name is required',
       })
       .email('This is not a valid email'),
-    lasttName: z.string({
-      required_error: 'Last Name is required',
+    firstName: z.string({
+      required_error: 'First Name is required',
     }),
-    email: z.string({
-      required_error: 'Email Name is required',
+    lastName: z.string({
+      required_error: 'Last Name is required',
     }),
     password: z.string({
       required_error: 'Password is required',
@@ -20,5 +20,5 @@ const loginZodSchema = z.object({
 })
 
 export const AuthValidation = {
-  loginZodSchema,
+  registerZodSchema,
 }

@@ -7,8 +7,14 @@ const router = express.Router()
 
 router.post(
   '/login',
-  validateRequest(AuthValidation.loginZodSchema),
+  // validateRequest(AuthValidation.loginZodSchema),
   AuthController.loginUser,
+)
+
+router.post(
+  '/register',
+  validateRequest(AuthValidation.registerZodSchema),
+  AuthController.registerUser,
 )
 
 export const AuthRoutes = router
