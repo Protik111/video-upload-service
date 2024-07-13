@@ -7,6 +7,16 @@ import httpStatus from 'http-status'
 const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   const { title, description, filePath } = paylod
 
+  if (!filePath || typeof filePath === 'string') {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'File path is invalid or undefined',
+    )
+  }
+
+  // Assuming filePath is of type File or Express.Multer.File
+  const fileLocation = filePath.path || ''
+
   const videoTitle = await prisma.video.findFirst({
     where: {
       title,
@@ -24,7 +34,7 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
     data: {
       title,
       description,
-      filePath,
+      filePath: fileLocation,
     },
   })
 

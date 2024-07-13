@@ -8,9 +8,6 @@ const uploadVideoZodSchema = z.object({
     description: z.string({
       required_error: 'Video description is required',
     }),
-    filePath: z.string({
-      required_error: 'Video file is required',
-    }),
   }),
 })
 

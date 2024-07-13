@@ -1,7 +1,7 @@
 export type IUplaodVideo = {
   title: string
   description: string
-  filePath: string | File | undefined
+  filePath: string | Express.Multer.File | undefined
 }
 
 export type IUploadResponse = {
