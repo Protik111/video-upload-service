@@ -5,7 +5,7 @@ import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 
 const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
-  const { title, description, filePath } = paylod
+  const { title, description, filePath, userId } = paylod
 
   if (!filePath || typeof filePath === 'string') {
     throw new ApiError(
@@ -35,6 +35,7 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
       title,
       description,
       filePath: fileLocation,
+      userId,
     },
   })
 

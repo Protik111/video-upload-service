@@ -7,7 +7,8 @@ import { IUploadResponse } from './video.interface'
 const uploadVideo = catchAsync(async (req: Request, res: Response) => {
   const { title, description } = req.body
   const filePath = req.file
-  const payload = { title, description, filePath }
+  const userId = req.user?.userId
+  const payload = { title, description, filePath, userId }
 
   const result = await VideoService.uploadVideo(payload)
 

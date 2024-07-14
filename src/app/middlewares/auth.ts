@@ -4,6 +4,13 @@ import { Secret } from 'jsonwebtoken'
 import config from '../../config'
 import ApiError from '../../errors/ApiError'
 import { jwtHelpers } from '../../helpers/jwtHelpers'
+import { Iuser } from '../../interfaces/user'
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: any
+  }
+}
 
 const auth =
   (...requiredRoles: string[]) =>
@@ -12,16 +19,18 @@ const auth =
       //get authorization token
       const token = req.headers.authorization
 
-      console.log('token', token)
       if (!token) {
         throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized')
       }
       // verify token
       let verifiedUser = null
 
-      verifiedUser = jwtHelpers.verifyToken(token, config.jwt.secret as Secret)
+      const splitedToken = token?.split(' ')[1]
 
-      console.log('verifiedUser', verifiedUser)
+      verifiedUser = jwtHelpers.verifyToken(
+        splitedToken,
+        config.jwt.secret as Secret,
+      )
 
       req.user = verifiedUser // role  , userid
 

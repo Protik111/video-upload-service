@@ -2,6 +2,7 @@ export type IUplaodVideo = {
   title: string
   description: string
   filePath: string | Express.Multer.File | undefined
+  userId: string
 }
 
 export type IUploadResponse = {

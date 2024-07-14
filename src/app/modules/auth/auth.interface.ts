@@ -8,7 +8,7 @@ export type IRegisterUser = {
   lastName: string
   email: string
   password: string
-  role: 'user' | 'admin' | 'Moderator'
+  role: 'user' | 'admin' | 'moderator'
   gender: string
 }
 
