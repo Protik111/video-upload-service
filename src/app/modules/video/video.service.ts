@@ -4,10 +4,9 @@ import prisma from '../../../shared/prisma'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 import fs from 'fs'
-import { exec } from 'child_process'
 import { v4 as uuidv4 } from 'uuid'
-import config from '../../../config'
 import path from 'path'
+import { VideoUtils } from './video.utils'
 
 const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   const { title, description, filePath, userId } = paylod
@@ -47,37 +46,13 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
     fs.mkdirSync(outputPath, { recursive: true })
   }
 
-  // convert video to HLS format using ffmpeg
-  const convertVideoToHLS = (
-    fileLocation: string,
-    outputPath: string,
-    hlsPath: string,
-  ) => {
-    return new Promise<string>((resolve, reject) => {
-      // Ensure paths are properly formatted for the command line
-      const formattedFileLocation = fileLocation.replace(/\\/g, '/')
-      const formattedOutputPath = outputPath.replace(/\\/g, '/')
-      const formattedHlsPath = hlsPath.replace(/\\/g, '/')
-
-      const ffmpegCommand = `ffmpeg -i "${formattedFileLocation}" -codec:v libx264 -codec:a aac -hls_time 10 -hls_playlist_type vod -hls_segment_filename "${formattedOutputPath}/segment%03d.ts" -start_number 0 "${formattedHlsPath}"`
-
-      exec(ffmpegCommand, (error, stdout, stderr) => {
-        if (error) {
-          reject(
-            new ApiError(
-              httpStatus.INTERNAL_SERVER_ERROR,
-              'Video could not processed!',
-            ),
-          )
-        } else {
-          resolve(`${config.video_compressed_dir}/${videoId}/index.m3u8`)
-        }
-      })
-    })
-  }
-
   // Wait for the video conversion to complete
-  const videoUrl = await convertVideoToHLS(fileLocation, outputPath, hlsPath)
+  const videoUrl = await VideoUtils.convertVideoToHLS(
+    fileLocation,
+    outputPath,
+    hlsPath,
+    videoId,
+  )
 
   const newVideo = await prisma.video.create({
     data: {
