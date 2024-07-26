@@ -66,6 +66,16 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   return newVideo
 }
 
+const getVideoById = async (id: string): Promise<Video | null> => {
+  const video = await prisma.video.findUnique({
+    where: {
+      id,
+    },
+  })
+
+  return video
+}
 export const VideoService = {
   uploadVideo,
+  getVideoById,
 }

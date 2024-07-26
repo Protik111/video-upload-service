@@ -8,6 +8,8 @@ import { ENUM_USER_ROLE } from '../../../enums/user'
 
 const router = Router()
 
+router.get('/:id', VideoController.getVideoById)
+
 router.post(
   '/upload',
   // validateRequest(VideoValidation.uploadVideoZodSchema),
