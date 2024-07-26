@@ -14,4 +14,5 @@ export default {
     expires_in: process.env.JWT_EXPIRES_IN,
     refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN,
   },
+  video_compressed_dir: process.env.VIDEO_COMPRESSED_DIR,
 }
