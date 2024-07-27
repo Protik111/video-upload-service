@@ -6,21 +6,6 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\.a8a0b65cc66973dca6bb8c0454bef9dd06a3ee68-audit.json",
     "files": [
         {
-            "date": 1720870820295,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-13-07-17-success.log",
-            "hash": "42fa7abedc125e5d2743366be51463786a409bf5fa33cd0689449eb0118ee842"
-        },
-        {
-            "date": 1720872101740,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-13-07-18-success.log",
-            "hash": "83f3f7ae8759d5b39ea2863061ea7d49732e5df694571803a03603f5069b884e"
-        },
-        {
-            "date": 1720879121127,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-13-07-19-success.log",
-            "hash": "0fc6ce1c6725322dbc29fa1b299e380d83f470148ae4c3ea08f19a78bfc67de0"
-        },
-        {
             "date": 1720884856329,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-13-07-21-success.log",
             "hash": "939cdcd2abb60ce9309b19aa513fe8f25db90a8b63c21ce6b60b2998a7107321"
@@ -104,6 +89,26 @@
             "date": 1722079170043,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-17-success.log",
             "hash": "136087d4a9b04376fe297a1ec2c698298406ef3947f0ebb5869b27b69ce28b26"
+        },
+        {
+            "date": 1722082085342,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-18-success.log",
+            "hash": "ba0c75aadc281a0cc20354e5405b8d3e9ea69d4e363ea6bc05d1dc1313ffaead"
+        },
+        {
+            "date": 1722085406179,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-19-success.log",
+            "hash": "5cd59a575db4e2508440e671b4aa5198869f072b25b437c608ef162f56e4c5d5"
+        },
+        {
+            "date": 1722089141994,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-20-success.log",
+            "hash": "a3d22423564ebef1c04b3a5ba973f1259d8f32a82d8a59e15255380c12f43f2e"
+        },
+        {
+            "date": 1722092599786,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-21-success.log",
+            "hash": "3f16475da63757749abf6b52edd7b05361128da3d2a26c6f2d7989306d85fdbb"
         }
     ],
     "hashType": "sha256"

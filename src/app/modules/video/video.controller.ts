@@ -8,6 +8,7 @@ import httpStatus from 'http-status'
 const uploadVideo = catchAsync(async (req: Request, res: Response) => {
   const { title, description } = req.body
   const filePath = req.file
+  // console.log('req.file', req.file)
   const userId = req.user?.userId
   const payload = { title, description, filePath, userId }
 

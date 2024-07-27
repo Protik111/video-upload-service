@@ -36,30 +36,59 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   }
 
   //videos params
-  const videoId = uuidv4()
-  const outputPath = path.resolve(
-    __dirname,
-    `../../../../compressed-video/${videoId}`,
-  )
-  const hlsPath = path.resolve(outputPath, 'index.m3u8')
+  // const videoId = uuidv4()
+  // const outputPath = path.resolve(
+  //   __dirname,
+  //   `../../../../compressed-video/${videoId}`,
+  // )
+  // const hlsPath = path.resolve(outputPath, 'index.m3u8')
 
-  if (!fs.existsSync(outputPath)) {
-    fs.mkdirSync(outputPath, { recursive: true })
+  // Prepare paths for compression and uploading
+  const videoId = uuidv4()
+  const compressedPath = path.resolve(
+    process.cwd(),
+    'compressed-video',
+    videoId,
+  )
+  // Resolve paths
+  const compressedFilePath = path.join(compressedPath, 'compressed_video.mp4')
+
+  // Ensure the directory exists
+  if (!fs.existsSync(compressedPath)) {
+    fs.mkdirSync(compressedPath, { recursive: true })
   }
 
   // Wait for the video conversion to complete
-  const videoUrl = await VideoUtils.convertVideoToHLS(
-    fileLocation,
-    outputPath,
-    hlsPath,
-    videoId,
+  // const videoUrl = await VideoUtils.convertVideoToHLS(
+  //   fileLocation,
+  //   outputPath,
+  //   hlsPath,
+  //   videoId,
+  // )
+
+  const formattedFileLocation = fileLocation.replace(/\\/g, '/')
+  const formattedCompressedFilePath = compressedFilePath.replace(/\\/g, '/')
+
+  // Compress the video using FFmpeg
+  await VideoUtils.compressVideo(
+    formattedFileLocation,
+    formattedCompressedFilePath,
   )
+
+  // Upload the compressed video to Cloudinary
+  const uploadResult =
+    await VideoUtils.videoUploadToCloudinary(compressedFilePath)
+
+  // Clean up the local compressed video file
+  if (fs.existsSync(compressedFilePath)) {
+    fs.unlinkSync(compressedFilePath)
+  }
 
   const newVideo = await prisma.video.create({
     data: {
       title,
       description,
-      filePath: videoUrl,
+      filePath: uploadResult.url,
       userId,
     },
   })
