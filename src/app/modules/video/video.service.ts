@@ -1,5 +1,5 @@
 import { Video } from '@prisma/client'
-import { IUplaodVideo } from './video.interface'
+import { IFielPath, IUplaodVideo } from './video.interface'
 import prisma from '../../../shared/prisma'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
@@ -7,6 +7,7 @@ import fs from 'fs'
 import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
 import { VideoUtils } from './video.utils'
+import express, { Application } from 'express'
 
 const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   const { title, description, filePath, userId } = paylod
@@ -66,14 +67,31 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   return newVideo
 }
 
-const getVideoById = async (id: string): Promise<Video | null> => {
+const app: Application = express()
+
+const getVideoById = async (id: string): Promise<IFielPath | null> => {
   const video = await prisma.video.findUnique({
     where: {
       id,
     },
   })
 
-  return video
+  if (!video) {
+    return null
+  }
+
+  const data = {
+    filePath: `${video.filePath}`,
+  }
+
+  return data
+
+  // const filePath = path.join(__dirname, 'compressed-video')
+  // const data = {
+  //   filePath,
+  // }
+
+  // return data
 }
 export const VideoService = {
   uploadVideo,

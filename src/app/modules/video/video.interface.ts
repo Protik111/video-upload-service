@@ -12,3 +12,7 @@ export type IUploadResponse = {
   filePath: string
   createdAt: Date
 }
+
+export type IFielPath = {
+  filePath: string
+}
