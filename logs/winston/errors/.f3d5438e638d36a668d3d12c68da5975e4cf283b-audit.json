@@ -6,16 +6,6 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\.f3d5438e638d36a668d3d12c68da5975e4cf283b-audit.json",
     "files": [
         {
-            "date": 1720858807475,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-13-07-14-error.log",
-            "hash": "5be6285cee030f3b32608e48fe6cf9d0c908b2c4d24ef2259bf2f3ba6447b622"
-        },
-        {
-            "date": 1720861557428,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-13-07-15-error.log",
-            "hash": "0217f2fb4deabe6e64baa8d43171621a7b7859ef1bbb780235fc129b8054c750"
-        },
-        {
             "date": 1720870820299,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-13-07-17-error.log",
             "hash": "07ee37f8269b63281c88a63fd45b6ed3829668c42a55f6fc8462cb62005438c1"
@@ -109,6 +99,11 @@
             "date": 1722067325265,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-27-07-14-error.log",
             "hash": "ba038f5c66c07c58918e3cdb156519da3424beef7fc7794c698bd4c064f1c7fb"
+        },
+        {
+            "date": 1722079170047,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-27-07-17-error.log",
+            "hash": "1dfa0c57b6b1189ba334d0e5c57cf720ec813f270eb2bf9f3f43ae4630b2d650"
         }
     ],
     "hashType": "sha256"
