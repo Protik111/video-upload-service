@@ -1,70 +1,44 @@
-import React, { useEffect, useState, useRef } from 'react'
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
+import { useRef } from 'react'
+import './App.css'
+import VideoPlayer from './components/VideoPlayer'
 
-const VideoPlayer = ({ src }) => {
-  const videoRef = useRef(null)
+function App() {
+  var videoSrc = 'http://localhost:5000/vid'
+
   const playerRef = useRef(null)
 
-  useEffect(() => {
-    if (!playerRef.current) {
-      const videoElement = videoRef.current
-      const player = (playerRef.current = videojs(videoElement, {
-        controls: true,
-        responsive: true,
-        fluid: true,
-        sources: [{ src, type: 'application/x-mpegURL' }],
-      }))
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [
+      {
+        src: videoSrc,
+        type: 'application/x-mpegURL',
+      },
+    ],
+  }
 
-      player.on('ready', () => {
-        console.log('Player is ready')
-      })
+  const handlePlayerReady = player => {
+    playerRef.current = player
 
-      player.on('error', error => {
-        console.error('Player error:', error)
-      })
-    } else {
-      const player = playerRef.current
-      player.src({ src, type: 'application/x-mpegURL' })
-    }
+    // You can handle player events here, for example:
+    player.on('waiting', () => {
+      videojs.log('player is waiting')
+    })
 
-    return () => {
-      if (playerRef.current) {
-        playerRef.current.dispose()
-      }
-    }
-  }, [src])
+    player.on('dispose', () => {
+      videojs.log('player will dispose')
+    })
+  }
 
   return (
-    <div data-vjs-player>
-      <video ref={videoRef} className="video-js" />
-    </div>
-  )
-}
-
-const App = () => {
-  const [videoUrl, setVideoUrl] = useState('')
-
-  console.log('videoURL', videoUrl)
-
-  useEffect(() => {
-    const fetchVideoUrl = async () => {
-      // Replace with your API endpoint
-      const response = await fetch(
-        `http://www.localhost:5000/api/v1/video/5b39b9dc-659e-4872-9967-9c541c04844f`,
-      )
-      const data = await response.json()
-      setVideoUrl(data.data.filePath)
-    }
-
-    fetchVideoUrl()
-  }, [])
-
-  return (
-    <div>
-      <h1>Video Player</h1>
-      {videoUrl ? <VideoPlayer src={videoUrl} /> : <p>Loading video...</p>}
-    </div>
+    <>
+      <div>
+        <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
+      </div>
+    </>
   )
 }
 
