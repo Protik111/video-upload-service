@@ -1,45 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import VideoPlayer from './components/VideoPlayer'
-import { useRef } from 'react'
+// App.js
+import React, { useState, useEffect } from 'react'
+import VideoPlayer from './components/VideoPlayer' // Adjust import path as needed
+import { fetchAndExtractZip } from './utils/fetchAndExtractZip'
 
 function App() {
-  const playerRef = useRef(null)
-  const videoLink =
-    'http://localhost:5000/compressed-video/ad1589bd-e95b-48fa-9cfc-f2b95b808702/index.m3u8'
+  const [playlistUrl, setPlaylistUrl] = useState(null)
+  const [error, setError] = useState(null)
+  const videoUrl =
+    'https://res.cloudinary.com/dukinbgee/raw/upload/v1722942935/myak39uwevm9fwcykfpm.zip' // Your ZIP URL
 
-  const videoPlayerOptions = {
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [
-      {
-        src: videoLink,
-        type: 'application/x-mpegURL',
-      },
-    ],
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const { playlistUrl } = await fetchAndExtractZip(videoUrl)
+        setPlaylistUrl(playlistUrl)
+      } catch (error) {
+        setError('Failed to load video.')
+      }
+    }
+
+    fetchVideo()
+  }, [videoUrl])
+
+  if (error) {
+    return <div>{error}</div>
   }
-  const handlePlayerReady = player => {
-    playerRef.current = player
 
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting')
-    })
-
-    player.on('dispose', () => {
-      videojs.log('player will dispose')
-    })
+  if (!playlistUrl) {
+    return <div>Loading...</div>
   }
+
   return (
-    <>
-      <div>
-        <h1>Video player</h1>
-      </div>
-      <VideoPlayer options={videoPlayerOptions} onReady={handlePlayerReady} />
-    </>
+    <div>
+      <h1>Video player</h1>
+      <VideoPlayer
+        options={{
+          sources: [{ src: playlistUrl, type: 'application/x-mpegURL' }],
+        }}
+      />
+    </div>
   )
 }
 
