@@ -9,6 +9,21 @@ import fs from 'fs'
 import path from 'path'
 import ffmpegStatic from 'ffmpeg-static'
 
+import AdmZip from 'adm-zip'
+
+// Function to create a zip file from a folder
+const createZipFromFolder = (folderPath: string, zipFilePath: string) => {
+  const zip = new AdmZip()
+  const files = fs.readdirSync(folderPath)
+
+  files.forEach(file => {
+    const filePath = path.join(folderPath, file)
+    zip.addLocalFile(filePath)
+  })
+
+  zip.writeZip(zipFilePath)
+}
+
 cloudinary.config({
   cloud_name: 'dukinbgee',
   api_key: '177946576474248',
@@ -95,10 +110,11 @@ const videoUploadToCloudinary = (
     cloudinary.uploader.upload(
       file,
       {
-        resource_type: 'video',
+        resource_type: 'raw', // Use 'raw' for non-image/video files
       },
       (error, result: any) => {
         if (error) {
+          console.log('error cloudnary', error)
           reject(error)
         } else {
           resolve({ url: result.secure_url, id: result.public_id })
@@ -142,4 +158,5 @@ export const VideoUtils = {
   convertVideoToHLS,
   videoUploadToCloudinary,
   compressVideo,
+  createZipFromFolder,
 }

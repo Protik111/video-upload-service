@@ -1,43 +1,69 @@
-// App.js
-import React, { useState, useEffect } from 'react'
-import VideoPlayer from './components/VideoPlayer' // Adjust import path as needed
-import { fetchAndExtractZip } from './utils/fetchAndExtractZip'
+import React, { useEffect, useState, useRef } from 'react'
+import videojs from 'video.js'
+import 'video.js/dist/video-js.css'
 
-function App() {
-  const [playlistUrl, setPlaylistUrl] = useState(null)
-  const [error, setError] = useState(null)
-  const videoUrl =
-    'https://res.cloudinary.com/dukinbgee/raw/upload/v1722942935/myak39uwevm9fwcykfpm.zip' // Your ZIP URL
+const VideoPlayer = ({ src }) => {
+  const videoRef = useRef(null)
+  const playerRef = useRef(null)
 
   useEffect(() => {
-    const fetchVideo = async () => {
-      try {
-        const { playlistUrl } = await fetchAndExtractZip(videoUrl)
-        setPlaylistUrl(playlistUrl)
-      } catch (error) {
-        setError('Failed to load video.')
-      }
+    if (!playerRef.current) {
+      const videoElement = videoRef.current
+      const player = (playerRef.current = videojs(videoElement, {
+        controls: true,
+        responsive: true,
+        fluid: true,
+        sources: [{ src, type: 'application/x-mpegURL' }],
+      }))
+
+      player.on('ready', () => {
+        console.log('Player is ready')
+      })
+
+      player.on('error', error => {
+        console.error('Player error:', error)
+      })
+    } else {
+      const player = playerRef.current
+      player.src({ src, type: 'application/x-mpegURL' })
     }
 
-    fetchVideo()
-  }, [videoUrl])
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.dispose()
+      }
+    }
+  }, [src])
 
-  if (error) {
-    return <div>{error}</div>
-  }
+  return (
+    <div data-vjs-player>
+      <video ref={videoRef} className="video-js" />
+    </div>
+  )
+}
 
-  if (!playlistUrl) {
-    return <div>Loading...</div>
-  }
+const App = () => {
+  const [videoUrl, setVideoUrl] = useState('')
+
+  console.log('videoURL', videoUrl)
+
+  useEffect(() => {
+    const fetchVideoUrl = async () => {
+      // Replace with your API endpoint
+      const response = await fetch(
+        `http://www.localhost:5000/api/v1/video/5b39b9dc-659e-4872-9967-9c541c04844f`,
+      )
+      const data = await response.json()
+      setVideoUrl(data.data.filePath)
+    }
+
+    fetchVideoUrl()
+  }, [])
 
   return (
     <div>
-      <h1>Video player</h1>
-      <VideoPlayer
-        options={{
-          sources: [{ src: playlistUrl, type: 'application/x-mpegURL' }],
-        }}
-      />
+      <h1>Video Player</h1>
+      {videoUrl ? <VideoPlayer src={videoUrl} /> : <p>Loading video...</p>}
     </div>
   )
 }

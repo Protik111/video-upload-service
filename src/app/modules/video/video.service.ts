@@ -19,7 +19,6 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
     )
   }
 
-  // Assuming filePath is of type File or Express.Multer.File
   const fileLocation = filePath.path || ''
 
   const videoTitle = await prisma.video.findFirst({
@@ -31,57 +30,42 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   if (videoTitle) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      'Video with this title is already exists',
+      'Video with this title already exists',
     )
   }
 
-  //videos params
-  // const videoId = uuidv4()
-  // const outputPath = path.resolve(
-  //   __dirname,
-  //   `../../../../compressed-video/${videoId}`,
-  // )
-  // const hlsPath = path.resolve(outputPath, 'index.m3u8')
-
-  // Prepare paths for compression and uploading
   const videoId = uuidv4()
   const compressedPath = path.resolve(
     process.cwd(),
     'compressed-video',
     videoId,
   )
-  // Resolve paths
-  const compressedFilePath = path.join(compressedPath, 'compressed_video.mp4')
+  const zipFilePath = path.join(compressedPath, 'hls_files.zip')
 
-  // Ensure the directory exists
   if (!fs.existsSync(compressedPath)) {
     fs.mkdirSync(compressedPath, { recursive: true })
   }
 
-  // Wait for the video conversion to complete
-  // const videoUrl = await VideoUtils.convertVideoToHLS(
-  //   fileLocation,
-  //   outputPath,
-  //   hlsPath,
-  //   videoId,
-  // )
-
-  const formattedFileLocation = fileLocation.replace(/\\/g, '/')
-  const formattedCompressedFilePath = compressedFilePath.replace(/\\/g, '/')
-
-  // Compress the video using FFmpeg
+  // Convert the video to HLS format
   await VideoUtils.compressVideo(
-    formattedFileLocation,
-    formattedCompressedFilePath,
+    fileLocation,
+    path.join(compressedPath, 'compressed_video.mp4'),
   )
 
-  // Upload the compressed video to Cloudinary
-  const uploadResult =
-    await VideoUtils.videoUploadToCloudinary(compressedFilePath)
+  // Create a zip of HLS files
+  VideoUtils.createZipFromFolder(compressedPath, zipFilePath)
 
-  // Clean up the local compressed video file
-  if (fs.existsSync(compressedFilePath)) {
-    fs.unlinkSync(compressedFilePath)
+  // Upload the zip to Cloudinary
+  const uploadResult = await VideoUtils.videoUploadToCloudinary(zipFilePath)
+
+  // Clean up local files
+  if (fs.existsSync(zipFilePath)) {
+    fs.unlinkSync(zipFilePath)
+  }
+
+  // Optionally remove other local files such as the HLS segments and playlist if needed
+  if (fs.existsSync(path.join(compressedPath, 'compressed_video.mp4'))) {
+    fs.unlinkSync(path.join(compressedPath, 'compressed_video.mp4'))
   }
 
   const newVideo = await prisma.video.create({
@@ -106,7 +90,7 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
   })
 
   if (!video) {
-    return null
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Video not found')
   }
 
   const data = {
@@ -122,6 +106,7 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
 
   // return data
 }
+
 export const VideoService = {
   uploadVideo,
   getVideoById,
