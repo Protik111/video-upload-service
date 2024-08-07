@@ -180,6 +180,7 @@ const compressVideoDash = async (
 const compressVideo = async (
   inputPath: string | Express.Multer.File | undefined,
   outputPath: string,
+  baseUrl: string, // Add baseUrl parameter for full URL replacement
 ): Promise<void> => {
   if (!inputPath) {
     throw new Error('Input path is undefined')
@@ -210,8 +211,15 @@ const compressVideo = async (
         '-hls_playlist_type vod',
       ])
       .output(path.join(normalizedOutputPath, 'playlist.m3u8'))
-      .on('end', () => {
+      .on('end', async () => {
         console.log('HLS Segmentation and Compression finished')
+
+        // Update playlist with full URLs
+        await updatePlaylistUrls(
+          path.join(normalizedOutputPath, 'playlist.m3u8'),
+          baseUrl,
+        )
+
         resolve()
       })
       .on('progress', progress => {
@@ -223,6 +231,21 @@ const compressVideo = async (
       })
       .run()
   })
+}
+
+// Helper function to update playlist URLs
+const updatePlaylistUrls = async (playlistPath: string, baseUrl: string) => {
+  try {
+    const playlist = fs.readFileSync(playlistPath, 'utf8')
+    const updatedPlaylist = playlist.replace(/segment_\d{3}\.ts/g, match => {
+      return `${baseUrl}/${match}`
+    })
+
+    fs.writeFileSync(playlistPath, updatedPlaylist, 'utf8')
+    console.log('Playlist updated with full URLs.')
+  } catch (error) {
+    console.error('Error updating playlist:', error)
+  }
 }
 
 const videoUploadToCloudinary = (

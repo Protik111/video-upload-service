@@ -42,8 +42,10 @@ const uploadVideo = async (payload: IUploadVideo): Promise<Video> => {
     fs.mkdirSync(compressedPath, { recursive: true })
   }
 
+  //base url for m3u8 file
+  const baseUrl = 'https://res.cloudinary.com/dukinbgee/raw/upload/v1723051404'
   // Convert the video to HLS format
-  await VideoUtils.compressVideo(fileLocation, compressedPath)
+  await VideoUtils.compressVideo(fileLocation, compressedPath, baseUrl)
 
   // Upload the HLS files to Cloudinary
   const hlsFiles = fs.readdirSync(compressedPath)

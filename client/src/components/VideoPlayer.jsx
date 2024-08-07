@@ -1,52 +1,47 @@
-import React, { useRef, useEffect } from 'react'
-import videojs from 'video.js'
-window.videojs = videojs
-import 'video.js/dist/video-js.css'
+import React, { useEffect, useRef } from 'react'
+import Hls from 'hls.js'
 
-export const VideoPlayer = props => {
+const VideoPlayer = ({ hlsUrl }) => {
   const videoRef = useRef(null)
-  const playerRef = useRef(null)
-  const { options, onReady } = props
 
   useEffect(() => {
-    // Make sure Video.js player is only initialized once
-    if (!playerRef.current) {
-      // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
-      const videoElement = document.createElement('video-js')
+    const video = videoRef.current
+    if (!video) return
 
-      videoElement.classList.add('vjs-big-play-centered')
-      videoRef.current.appendChild(videoElement)
+    if (Hls.isSupported()) {
+      const hls = new Hls()
 
-      const player = (playerRef.current = videojs(videoElement, options, () => {
-        videojs.log('player is ready')
-        onReady && onReady(player)
-      }))
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS Error:', data)
+      })
 
-      // You could update an existing player in the `else` block here
-      // on prop change, for example:
-    } else {
-      const player = playerRef.current
+      hls.loadSource(hlsUrl)
+      hls.attachMedia(video)
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play()
+      })
 
-      player.autoplay(options.autoplay)
-      player.src(options.sources)
-    }
-  }, [options, videoRef])
-
-  // Dispose the Video.js player when the functional component unmounts
-  useEffect(() => {
-    const player = playerRef.current
-
-    return () => {
-      if (player && !player.isDisposed()) {
-        player.dispose()
-        playerRef.current = null
+      return () => {
+        hls.destroy()
       }
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = hlsUrl
+      video.addEventListener('loadedmetadata', () => {
+        video.play()
+      })
+    } else {
+      console.error('HLS is not supported')
     }
-  }, [playerRef])
+  }, [hlsUrl])
 
   return (
-    <div data-vjs-player style={{ width: '600px' }}>
-      <div ref={videoRef} />
+    <div className="video-container">
+      <video
+        ref={videoRef}
+        controls
+        style={{ width: '100%', height: 'auto' }}
+        playsInline
+      />
     </div>
   )
 }
