@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import videojs from 'video.js'
+window.videojs = videojs
 import 'video.js/dist/video-js.css'
 
 export const VideoPlayer = props => {

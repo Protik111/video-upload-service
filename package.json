@@ -39,6 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
     "adm-zip": "^0.5.15",
+    "axios": "^1.7.3",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.3.1",
     "cookie-parser": "^1.4.6",

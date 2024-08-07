@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "dashjs": "^4.7.4",
+    "hls.js": "^1.5.14",
     "jszip": "^3.10.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "video.js": "^8.16.1"
+    "react-player": "^2.16.0",
+    "video.js": "^8.16.1",
+    "vnetwork-player": "^1.1.29"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

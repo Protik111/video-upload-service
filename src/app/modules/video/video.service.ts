@@ -5,9 +5,10 @@ import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 import fs from 'fs'
 import { v4 as uuidv4 } from 'uuid'
-import path from 'path'
 import { VideoUtils } from './video.utils'
-import express, { Application } from 'express'
+import AdmZip from 'adm-zip'
+import path from 'path'
+import axios from 'axios'
 
 const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
   const { title, description, filePath, userId } = paylod
@@ -52,10 +53,10 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
     path.join(compressedPath, 'compressed_video.mp4'),
   )
 
-  // Create a zip of HLS files
+  //Create a zip of HLS files
   VideoUtils.createZipFromFolder(compressedPath, zipFilePath)
 
-  // Upload the zip to Cloudinary
+  //Upload the zip to Cloudinary
   const uploadResult = await VideoUtils.videoUploadToCloudinary(zipFilePath)
 
   // Clean up local files
@@ -79,8 +80,6 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
 
   return newVideo
 }
-
-const app: Application = express()
 
 const getVideoById = async (id: string): Promise<IFielPath | null> => {
   const video = await prisma.video.findUnique({

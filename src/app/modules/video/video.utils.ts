@@ -35,6 +35,7 @@ cloudinary.config({
 // Helper function to escape paths
 const normalizePath = (p: string): string => p.replace(/\\/g, '/')
 
+//with .ts and m3.8
 const compressVideo = async (
   inputPath: string | Express.Multer.File | undefined,
   outputPath: string,
@@ -103,6 +104,80 @@ const compressVideo = async (
   // }
 }
 
+//with chunk and mpd
+const compressVideoDash = async (
+  inputPath: string | Express.Multer.File | undefined,
+  outputDir: string,
+): Promise<void> => {
+  if (!inputPath) {
+    throw new Error('Input path is undefined')
+  }
+
+  const inputPathStr =
+    typeof inputPath === 'string'
+      ? inputPath
+      : (inputPath as Express.Multer.File).path
+
+  const normalizedInputPath = normalizePath(inputPathStr)
+  const normalizedOutputDir = normalizePath(outputDir)
+
+  if (!fs.existsSync(normalizedInputPath)) {
+    throw new Error(`Input file does not exist: ${normalizedInputPath}`)
+  }
+
+  if (!fs.existsSync(normalizedOutputDir)) {
+    fs.mkdirSync(normalizedOutputDir, { recursive: true })
+  }
+
+  return new Promise((resolve, reject) => {
+    console.log(
+      `Starting video compression from ${normalizedInputPath} to ${normalizedOutputDir}`,
+    )
+
+    const scaleOptions = ['scale=1280:720', 'scale=640:320']
+    const videoCodec = 'libx264'
+    const x264Options = 'keyint=24:min-keyint=24:no-scenecut'
+    const videoBitrates = ['500k', '1000k', '2000k', '4000k']
+
+    ffmpeg(normalizedInputPath)
+      .videoFilters(scaleOptions)
+      .videoCodec(videoCodec)
+      .addOption('-x264opts', x264Options)
+      .outputOptions(
+        '-b:v',
+        videoBitrates[0],
+        '-use_template',
+        '1',
+        '-use_timeline',
+        '1',
+        '-seg_duration',
+        '10',
+        `-init_seg_name`,
+        `${path.join(normalizedOutputDir, 'init-stream$RepresentationID$.m4s')}`,
+        `-media_seg_name`,
+        `${path.join(normalizedOutputDir, 'chunk-stream$RepresentationID$-$Number%05d$.m4s')}`,
+        '-adaptation_sets',
+        'id=0,streams=v id=1,streams=a',
+      )
+      .format('dash')
+      .output(path.join(normalizedOutputDir, 'playlist.mpd')) // Output manifest file
+      .on('end', () => {
+        console.log('DASH Segmentation and Compression finished')
+        resolve()
+      })
+      .on('progress', progress => {
+        console.log(`Processing: ${progress.percent}% done`)
+      })
+      .on('error', (err: any, stdout: string, stderr: string) => {
+        console.error(`FFmpeg error: ${err.message}`)
+        console.error(`FFmpeg stdout: ${stdout}`)
+        console.error(`FFmpeg stderr: ${stderr}`)
+        reject(err)
+      })
+      .run()
+  })
+}
+
 const videoUploadToCloudinary = (
   file: string,
 ): Promise<{ url: string; id: string }> => {
@@ -159,4 +234,5 @@ export const VideoUtils = {
   videoUploadToCloudinary,
   compressVideo,
   createZipFromFolder,
+  compressVideoDash,
 }

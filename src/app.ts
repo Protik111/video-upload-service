@@ -8,20 +8,37 @@ import path from 'path'
 
 const app: Application = express()
 
-app.use(cors())
+const corsOptions = {
+  origin: '*',
+}
+
+app.use(cors(corsOptions))
 app.use(cookieParser())
 //parser
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Serve static files from the "compressed-video" directory
-const compressedVideoPath = path.resolve(__dirname, 'compressed-video')
+const compressedVideoPath = path.resolve(
+  process.cwd(),
+  'compressed-video/03fb616b-b7c4-42b6-8eef-48c08b4444eb',
+)
 // console.log('compressedVideoPath:', compressedVideoPath)
 app.use('/uploads/compressed', express.static(compressedVideoPath))
 
 //file test route
 app.get('/test-file', (req: Request, res: Response) => {
   const filePath = path.resolve(compressedVideoPath, 'test.txt')
+  res.sendFile(filePath, err => {
+    if (err) {
+      console.error('Error sending file:', err)
+      res.status(404).send('File not found')
+    }
+  })
+})
+
+app.get('/vid', (req: Request, res: Response) => {
+  const filePath = path.resolve(compressedVideoPath, 'playlist.m3u8')
   res.sendFile(filePath, err => {
     if (err) {
       console.error('Error sending file:', err)

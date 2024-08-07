@@ -1,44 +1,18 @@
-import { useRef } from 'react'
 import './App.css'
-import VideoPlayer from './components/VideoPlayer'
+import VPlayer from 'vnetwork-player'
+import Hls from 'hls.js'
+import 'vnetwork-player/dist/vnetwork-player.min.css'
 
 function App() {
-  var videoSrc = 'http://localhost:5000/vid'
-
-  const playerRef = useRef(null)
-
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [
-      {
-        src: videoSrc,
-        type: 'application/x-mpegURL',
-      },
-    ],
-  }
-
-  const handlePlayerReady = player => {
-    playerRef.current = player
-
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting')
-    })
-
-    player.on('dispose', () => {
-      videojs.log('player will dispose')
-    })
-  }
-
   return (
-    <>
-      <div>
-        <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
-      </div>
-    </>
+    <div>
+      <VPlayer
+        source="http://localhost:5000/vid"
+        color="#ff0000"
+        autoPlay
+        Hls={Hls}
+      />
+    </div>
   )
 }
 
