@@ -8,8 +8,13 @@ import ffmpeg from 'fluent-ffmpeg'
 import fs from 'fs'
 import path from 'path'
 import ffmpegStatic from 'ffmpeg-static'
-
 import AdmZip from 'adm-zip'
+
+cloudinary.config({
+  cloud_name: 'dukinbgee',
+  api_key: '177946576474248',
+  api_secret: '9_jFRnOEilzJ3pYi4n1PYbf-39A',
+})
 
 // Function to create a zip file from a folder
 const createZipFromFolder = (folderPath: string, zipFilePath: string) => {
@@ -24,19 +29,13 @@ const createZipFromFolder = (folderPath: string, zipFilePath: string) => {
   zip.writeZip(zipFilePath)
 }
 
-cloudinary.config({
-  cloud_name: 'dukinbgee',
-  api_key: '177946576474248',
-  api_secret: '9_jFRnOEilzJ3pYi4n1PYbf-39A',
-})
-
 //const execPromise = util.promisify(exec)
 
 // Helper function to escape paths
 const normalizePath = (p: string): string => p.replace(/\\/g, '/')
 
-//with .ts and m3.8
-const compressVideo = async (
+//with .ts and m3.8 //previously used one
+const compressVideoPrev = async (
   inputPath: string | Express.Multer.File | undefined,
   outputPath: string,
 ): Promise<void> => {
@@ -178,6 +177,54 @@ const compressVideoDash = async (
   })
 }
 
+const compressVideo = async (
+  inputPath: string | Express.Multer.File | undefined,
+  outputPath: string,
+): Promise<void> => {
+  if (!inputPath) {
+    throw new Error('Input path is undefined')
+  }
+
+  const inputPathStr =
+    typeof inputPath === 'string'
+      ? inputPath
+      : (inputPath as Express.Multer.File).path
+  const normalizedInputPath = normalizePath(inputPathStr)
+  const normalizedOutputPath = normalizePath(outputPath)
+
+  if (!fs.existsSync(normalizedInputPath)) {
+    throw new Error(`Input file does not exist: ${normalizedInputPath}`)
+  }
+
+  return new Promise((resolve, reject) => {
+    ffmpeg(normalizedInputPath)
+      .videoCodec('libx264')
+      .audioCodec('aac')
+      .outputOptions([
+        '-b:v 1000k',
+        '-b:a 128k',
+        '-hls_time 10',
+        '-hls_list_size 0',
+        '-hls_segment_filename',
+        path.join(normalizedOutputPath, 'segment_%03d.ts'),
+        '-hls_playlist_type vod',
+      ])
+      .output(path.join(normalizedOutputPath, 'playlist.m3u8'))
+      .on('end', () => {
+        console.log('HLS Segmentation and Compression finished')
+        resolve()
+      })
+      .on('progress', progress => {
+        console.log(`Processing: ${progress.percent}% done`)
+      })
+      .on('error', (err: any) => {
+        console.error(`FFmpeg error: ${err.message}`)
+        reject(err)
+      })
+      .run()
+  })
+}
+
 const videoUploadToCloudinary = (
   file: string,
 ): Promise<{ url: string; id: string }> => {
@@ -189,7 +236,7 @@ const videoUploadToCloudinary = (
       },
       (error, result: any) => {
         if (error) {
-          console.log('error cloudnary', error)
+          console.log('error cloudinary', error)
           reject(error)
         } else {
           resolve({ url: result.secure_url, id: result.public_id })

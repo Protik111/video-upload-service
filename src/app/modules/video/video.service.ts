@@ -10,8 +10,8 @@ import AdmZip from 'adm-zip'
 import path from 'path'
 import axios from 'axios'
 
-const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
-  const { title, description, filePath, userId } = paylod
+const uploadVideo = async (payload: IUploadVideo): Promise<Video> => {
+  const { title, description, filePath, userId } = payload
 
   if (!filePath || typeof filePath === 'string') {
     throw new ApiError(
@@ -22,11 +22,7 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
 
   const fileLocation = filePath.path || ''
 
-  const videoTitle = await prisma.video.findFirst({
-    where: {
-      title,
-    },
-  })
+  const videoTitle = await prisma.video.findFirst({ where: { title } })
 
   if (videoTitle) {
     throw new ApiError(
@@ -41,40 +37,48 @@ const uploadVideo = async (paylod: IUplaodVideo): Promise<Video> => {
     'compressed-video',
     videoId,
   )
-  const zipFilePath = path.join(compressedPath, 'hls_files.zip')
 
   if (!fs.existsSync(compressedPath)) {
     fs.mkdirSync(compressedPath, { recursive: true })
   }
 
   // Convert the video to HLS format
-  await VideoUtils.compressVideo(
-    fileLocation,
-    path.join(compressedPath, 'compressed_video.mp4'),
-  )
+  await VideoUtils.compressVideo(fileLocation, compressedPath)
 
-  //Create a zip of HLS files
-  VideoUtils.createZipFromFolder(compressedPath, zipFilePath)
+  // Upload the HLS files to Cloudinary
+  const hlsFiles = fs.readdirSync(compressedPath)
+  const uploadPromises = hlsFiles.map(file => {
+    const filePath = path.join(compressedPath, file)
+    return VideoUtils.videoUploadToCloudinary(filePath)
+  })
 
-  //Upload the zip to Cloudinary
-  const uploadResult = await VideoUtils.videoUploadToCloudinary(zipFilePath)
+  const uploadResults = await Promise.all(uploadPromises)
 
   // Clean up local files
-  if (fs.existsSync(zipFilePath)) {
-    fs.unlinkSync(zipFilePath)
-  }
+  hlsFiles.forEach(file => {
+    const filePath = path.join(compressedPath, file)
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath)
+    }
+  })
 
-  // Optionally remove other local files such as the HLS segments and playlist if needed
-  if (fs.existsSync(path.join(compressedPath, 'compressed_video.mp4'))) {
-    fs.unlinkSync(path.join(compressedPath, 'compressed_video.mp4'))
-  }
+  // Store the URLs of the uploaded HLS files in your database
+  const hlsUrls = uploadResults.map(result => result.url)
+  const playlistUrl = hlsUrls.find(url => url.endsWith('.m3u8')) || ''
 
   const newVideo = await prisma.video.create({
     data: {
+      id: videoId,
       title,
       description,
-      filePath: uploadResult.url,
+      filePath: playlistUrl,
       userId,
+      hlsFiles: {
+        create: hlsUrls.map(url => ({ url })),
+      },
+    },
+    include: {
+      hlsFiles: true,
     },
   })
 
@@ -86,6 +90,9 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
     where: {
       id,
     },
+    include: {
+      hlsFiles: true,
+    },
   })
 
   if (!video) {
@@ -93,7 +100,12 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
   }
 
   const data = {
-    filePath: `${video.filePath}`,
+    filePath: video.filePath,
+    hlsFiles: video.hlsFiles.map(hlsFile => ({
+      id: hlsFile.id,
+      url: hlsFile.url,
+      videoId: hlsFile.videoId,
+    })),
   }
 
   return data
