@@ -6,36 +6,6 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\.a8a0b65cc66973dca6bb8c0454bef9dd06a3ee68-audit.json",
     "files": [
         {
-            "date": 1721897421796,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-25-07-14-success.log",
-            "hash": "15cd00d2b01c3cd66866f698153c71d395a6061cd43ae8159615cc17786fe6d6"
-        },
-        {
-            "date": 1721964034362,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-09-success.log",
-            "hash": "836062b8df34f40bda595fab4f9483c1cf73bdfd31514e786995af3e5931f10f"
-        },
-        {
-            "date": 1721993750440,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-17-success.log",
-            "hash": "312b252a637bb5818265a03e0e3ef27ef45d53665764879f420d2ac997e7369d"
-        },
-        {
-            "date": 1721995717915,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-18-success.log",
-            "hash": "bcfd038c3e6322a5aa6249af71cb643fcba5b1054af480b428fadd6401d45847"
-        },
-        {
-            "date": 1721999827301,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-19-success.log",
-            "hash": "79f33c027486827ddf9a1a35e04ecf6edf55ab3df700168887f58e8a2ed3abc6"
-        },
-        {
-            "date": 1722002637374,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-20-success.log",
-            "hash": "5e8697d61023dff198083ded3595539385c4b749ae53765e5b3fc1cd3415072a"
-        },
-        {
             "date": 1722012370863,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-22-success.log",
             "hash": "b8131919b7a1473946ed7087678e3259fac1dd18dabea9ea9c35750827d39ee7"
@@ -159,6 +129,16 @@
             "date": 1723050302928,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-07-08-23-success.log",
             "hash": "a16a9d41010b0a1bbcda33f545b934d14379fb2f63ecab909e6d9661fb2ebe0e"
+        },
+        {
+            "date": 1723212133353,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-09-08-20-success.log",
+            "hash": "ade975f8a11300a34d45ddc030b1aa1e6ed4af2367e67ce69536b5a5b4a6a002"
+        },
+        {
+            "date": 1723215841050,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-09-08-21-success.log",
+            "hash": "ab0bc74bac25d118cd11a217606cd5645e198cad06f3a99bd88ff2519ec79364"
         }
     ],
     "hashType": "sha256"

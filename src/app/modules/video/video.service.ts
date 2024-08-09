@@ -10,7 +10,7 @@ import AdmZip from 'adm-zip'
 import path from 'path'
 import axios from 'axios'
 
-const uploadVideo = async (payload: IUploadVideo): Promise<Video> => {
+const uploadVideo = async (payload: IUplaodVideo): Promise<Video> => {
   const { title, description, filePath, userId } = payload
 
   if (!filePath || typeof filePath === 'string') {
@@ -21,7 +21,6 @@ const uploadVideo = async (payload: IUploadVideo): Promise<Video> => {
   }
 
   const fileLocation = filePath.path || ''
-
   const videoTitle = await prisma.video.findFirst({ where: { title } })
 
   if (videoTitle) {
@@ -42,19 +41,36 @@ const uploadVideo = async (payload: IUploadVideo): Promise<Video> => {
     fs.mkdirSync(compressedPath, { recursive: true })
   }
 
-  //base url for m3u8 file
-  const baseUrl = 'https://res.cloudinary.com/dukinbgee/raw/upload/v1723051404'
   // Convert the video to HLS format
-  await VideoUtils.compressVideo(fileLocation, compressedPath, baseUrl)
+  await VideoUtils.compressVideo(fileLocation, compressedPath)
 
   // Upload the HLS files to Cloudinary
   const hlsFiles = fs.readdirSync(compressedPath)
-  const uploadPromises = hlsFiles.map(file => {
+
+  // Upload the first file to get the base URL
+  const firstFile = hlsFiles[0]
+  const firstFilePath = path.join(compressedPath, firstFile)
+  const firstUploadResult = await VideoUtils.videoUploadToCloudinary(
+    firstFilePath,
+    firstFile,
+  )
+
+  const baseUrl = firstUploadResult.url.replace(/\/[^\/]+$/, '') // Remove the last part of the URL to get the base
+
+  // Upload the remaining files using the correct base URL
+  const uploadPromises = hlsFiles.slice(1).map(file => {
     const filePath = path.join(compressedPath, file)
-    return VideoUtils.videoUploadToCloudinary(filePath)
+    return VideoUtils.videoUploadToCloudinary(filePath, file)
   })
 
   const uploadResults = await Promise.all(uploadPromises)
+  uploadResults.unshift(firstUploadResult) // Add the first result to the array
+
+  // Update the playlist file with the correct URLs
+  await VideoUtils.updatePlaylistUrls(
+    path.join(compressedPath, 'playlist.m3u8'),
+    baseUrl,
+  )
 
   // Clean up local files
   hlsFiles.forEach(file => {

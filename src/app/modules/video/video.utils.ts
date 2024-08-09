@@ -180,7 +180,6 @@ const compressVideoDash = async (
 const compressVideo = async (
   inputPath: string | Express.Multer.File | undefined,
   outputPath: string,
-  baseUrl: string, // Add baseUrl parameter for full URL replacement
 ): Promise<void> => {
   if (!inputPath) {
     throw new Error('Input path is undefined')
@@ -213,13 +212,6 @@ const compressVideo = async (
       .output(path.join(normalizedOutputPath, 'playlist.m3u8'))
       .on('end', async () => {
         console.log('HLS Segmentation and Compression finished')
-
-        // Update playlist with full URLs
-        await updatePlaylistUrls(
-          path.join(normalizedOutputPath, 'playlist.m3u8'),
-          baseUrl,
-        )
-
         resolve()
       })
       .on('progress', progress => {
@@ -250,12 +242,14 @@ const updatePlaylistUrls = async (playlistPath: string, baseUrl: string) => {
 
 const videoUploadToCloudinary = (
   file: string,
+  fileName: string, // Pass the filename to Cloudinary
 ): Promise<{ url: string; id: string }> => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload(
       file,
       {
-        resource_type: 'raw', // Use 'raw' for non-image/video files
+        resource_type: 'raw',
+        public_id: fileName, // Use the provided filename
       },
       (error, result: any) => {
         if (error) {
@@ -305,4 +299,5 @@ export const VideoUtils = {
   compressVideo,
   createZipFromFolder,
   compressVideoDash,
+  updatePlaylistUrls,
 }

@@ -6,36 +6,6 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\.f3d5438e638d36a668d3d12c68da5975e4cf283b-audit.json",
     "files": [
         {
-            "date": 1721897421800,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-25-07-14-error.log",
-            "hash": "f784c6a9eb9d2853adac37e5407e5da7ee04a2dd153e58e60ab23d58daade4ea"
-        },
-        {
-            "date": 1721964034366,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-09-error.log",
-            "hash": "71d8feab5ba4db1e7608a8476e01d607b247f38861cb9e87493a50f361885302"
-        },
-        {
-            "date": 1721993750443,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-17-error.log",
-            "hash": "e41d7f5af6c85e69d025ed2e15e0c93e325a5e75408daaf99219a22fe34eaae0"
-        },
-        {
-            "date": 1721995717918,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-18-error.log",
-            "hash": "e1498a08443a944d43cf79b0fc86bdb2c24645ba98f2c31b01a05daf495e17b6"
-        },
-        {
-            "date": 1721999827305,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-19-error.log",
-            "hash": "7752c6a4df5096f37524ba051c58e6da07dfa419ecca013f2e5514c69599940b"
-        },
-        {
-            "date": 1722002637377,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-20-error.log",
-            "hash": "ed5a1d90137886d86d43ef4eca9ca79e9212dc010f8ddd585dd9eaacb169fb46"
-        },
-        {
             "date": 1722012370867,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-26-07-22-error.log",
             "hash": "a17dcbdff448054bfa178e496463ef2dbcb1764250fc6e0160e6949128d3c895"
@@ -159,6 +129,16 @@
             "date": 1723050302932,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-07-08-23-error.log",
             "hash": "47102845460a2e077f2fc7d213e35dda4b0479b8a3f287dd15da1deb44f565ec"
+        },
+        {
+            "date": 1723212133359,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-09-08-20-error.log",
+            "hash": "2ab6b4c2f730249f9ec1336df80d4050f8f216402d2856c6917e606dce4853da"
+        },
+        {
+            "date": 1723215841055,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-09-08-21-error.log",
+            "hash": "7da33fc5c21afd732f0f997d64bd309ff2f0b30416196e0267d34060172211d8"
         }
     ],
     "hashType": "sha256"
