@@ -212,7 +212,7 @@ const compressVideo = async (
       ])
       .output(path.join(normalizedOutputPath, 'playlist.m3u8'))
       .videoFilters(
-        `drawtext=text=${userEmail}:fontcolor=white:fontsize=24:x=w-tw-10:y=10`,
+        `drawtext=text='${userEmail}':fontcolor=white:fontsize=24:x='mod((t*50), (w-tw-20))':y='10+mod((t*50), (h-th-20))'`,
       )
       .on('end', async () => {
         console.log('HLS Segmentation and Compression finished')
