@@ -11,9 +11,9 @@ import ffmpegStatic from 'ffmpeg-static'
 import AdmZip from 'adm-zip'
 
 cloudinary.config({
-  cloud_name: 'dukinbgee',
-  api_key: '177946576474248',
-  api_secret: '9_jFRnOEilzJ3pYi4n1PYbf-39A',
+  cloud_name: config.cloudinary.cloud_name,
+  api_key: config.cloudinary.api_key,
+  api_secret: config.cloudinary.api_secret,
 })
 
 // Function to create a zip file from a folder
