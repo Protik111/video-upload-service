@@ -8,7 +8,7 @@ interface AppProps {
 }
 
 const App: React.FC<AppProps> = ({
-  videoId = 'df4963ea-d2f2-446b-be77-52e213041975',
+  videoId = '9f20cd8a-1fa1-46c3-83aa-6056af63ef11',
 }) => {
   const [hlsUrl, setHlsUrl] = useState<string | null>(null)
 

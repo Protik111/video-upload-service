@@ -180,6 +180,7 @@ const compressVideoDash = async (
 const compressVideo = async (
   inputPath: string | Express.Multer.File | undefined,
   outputPath: string,
+  userEmail: string,
 ): Promise<void> => {
   if (!inputPath) {
     throw new Error('Input path is undefined')
@@ -210,6 +211,9 @@ const compressVideo = async (
         '-hls_playlist_type vod',
       ])
       .output(path.join(normalizedOutputPath, 'playlist.m3u8'))
+      .videoFilters(
+        `drawtext=text=${userEmail}:fontcolor=white:fontsize=24:x=w-tw-10:y=10`,
+      )
       .on('end', async () => {
         console.log('HLS Segmentation and Compression finished')
         resolve()

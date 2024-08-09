@@ -6,16 +6,6 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\.a8a0b65cc66973dca6bb8c0454bef9dd06a3ee68-audit.json",
     "files": [
         {
-            "date": 1722012370863,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-22-success.log",
-            "hash": "b8131919b7a1473946ed7087678e3259fac1dd18dabea9ea9c35750827d39ee7"
-        },
-        {
-            "date": 1722013520094,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-26-07-23-success.log",
-            "hash": "bed30d5ccad3d3f2014268f90a7ec2fb6402c9894c2bd9027a2b36a96d1ccc36"
-        },
-        {
             "date": 1722060076685,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-27-07-12-success.log",
             "hash": "30438a285c745f7500e5a4ca2fc3b62bbb4fa2142e0ee2624f828a9678f298da"
@@ -144,6 +134,11 @@
             "date": 1723219369398,
             "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-09-08-22-success.log",
             "hash": "81a761a325c5296b06625cd1ffefd2efe4339b5da16016c17d436989d0e3b018"
+        },
+        {
+            "date": 1723223639058,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-09-08-23-success.log",
+            "hash": "ee2cacc99b46939b02fdacbcd5d340263247549acb77ac8b7e686f64fe25465c"
         }
     ],
     "hashType": "sha256"

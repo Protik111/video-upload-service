@@ -30,6 +30,11 @@ const uploadVideo = async (payload: IUplaodVideo): Promise<Video> => {
     )
   }
 
+  const userEmail = await prisma.user.findFirst({
+    where: { id: userId },
+    select: { email: true },
+  })
+
   const videoId = uuidv4()
   const compressedPath = path.resolve(
     process.cwd(),
@@ -41,8 +46,14 @@ const uploadVideo = async (payload: IUplaodVideo): Promise<Video> => {
     fs.mkdirSync(compressedPath, { recursive: true })
   }
 
-  // Convert the video to HLS format
-  await VideoUtils.compressVideo(fileLocation, compressedPath)
+  if (userEmail) {
+    // Convert the video to HLS format
+    await VideoUtils.compressVideo(
+      fileLocation,
+      compressedPath,
+      userEmail.email,
+    )
+  }
 
   // Upload the HLS files to Cloudinary
   const hlsFiles = fs.readdirSync(compressedPath)
