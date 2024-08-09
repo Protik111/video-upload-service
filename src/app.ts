@@ -26,27 +26,6 @@ const compressedVideoPath = path.resolve(
 // console.log('compressedVideoPath:', compressedVideoPath)
 app.use('/uploads/compressed', express.static(compressedVideoPath))
 
-//file test route
-app.get('/test-file', (req: Request, res: Response) => {
-  const filePath = path.resolve(compressedVideoPath, 'test.txt')
-  res.sendFile(filePath, err => {
-    if (err) {
-      console.error('Error sending file:', err)
-      res.status(404).send('File not found')
-    }
-  })
-})
-
-app.get('/vid', (req: Request, res: Response) => {
-  const filePath = path.resolve(compressedVideoPath, 'playlist.m3u8')
-  res.sendFile(filePath, err => {
-    if (err) {
-      console.error('Error sending file:', err)
-      res.status(404).send('File not found')
-    }
-  })
-})
-
 //routes
 app.use('/api/v1', routes)
 
