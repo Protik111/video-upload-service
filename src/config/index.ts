@@ -20,4 +20,8 @@ export default {
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
   },
+  redis: {
+    url: process.env.REDIS_URL,
+    expires_in: process.env.REDIS_EXPIRATION_TIME,
+  },
 }

@@ -2,6 +2,9 @@ import path from 'path'
 import multer, { StorageEngine } from 'multer'
 import fs from 'fs'
 import { Request, Express } from 'express'
+import rateLimit from 'express-rate-limit'
+import RedisStore from 'rate-limit-redis'
+import { RedisClient } from '../../../shared/redis'
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(__dirname, '../../../../uplaods')
@@ -28,4 +31,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-export default upload
+//redis rate limiter
+const rateLimiter = rateLimit({
+  store: new RedisStore({
+    sendCommand: (...args: string[]) =>
+      RedisClient.redisClient.sendCommand(args),
+  }),
+  windowMs: 5 * 1000, // 5 seconds
+  max: 2, // Limit each IP to 100 requests per windowMs
+  message: 'Too many requests, please try again later.',
+})
+
+export const VideoMiddlewares = {
+  upload,
+  rateLimiter,
+}

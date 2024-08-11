@@ -3,11 +3,9 @@ import config from '../../../config'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
 import { v2 as cloudinary } from 'cloudinary'
-import util from 'util'
 import ffmpeg from 'fluent-ffmpeg'
 import fs from 'fs'
 import path from 'path'
-import ffmpegStatic from 'ffmpeg-static'
 import AdmZip from 'adm-zip'
 
 cloudinary.config({
