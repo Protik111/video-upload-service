@@ -5,9 +5,9 @@ import app from './app'
 import { RedisClient } from './shared/redis'
 
 async function bootstrap() {
-  //redis connection
-  await RedisClient.connect()
-  console.log('Redis is connected')
+  await RedisClient.connect().then(() =>
+    console.log('Redis connected succesfully from server!'),
+  )
 
   const server: Server = app.listen(config.port, () => {
     logger.info(`Server running on port ${config.port}`)

@@ -4,6 +4,7 @@ import { logger } from './logger'
 
 const redisClient = createClient({
   url: config.redis.url,
+  legacyMode: true,
 })
 
 redisClient.on('error', error => logger.error('RedisError', error))
