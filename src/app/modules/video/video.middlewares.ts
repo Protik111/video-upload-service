@@ -33,8 +33,8 @@ const upload = multer({ storage })
 
 //redis rate limiter
 const rateLimiter = rateLimit({
-  windowMs: 5000,
-  limit: 3,
+  windowMs: 2000,
+  limit: 2,
   standardHeaders: 'draft-7',
   legacyHeaders: false,
 
