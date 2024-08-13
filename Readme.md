@@ -38,15 +38,15 @@ This service allows users to upload videos, convert them into HLS format, and ad
    ```env
    NODE_ENV=development
    PORT=5000
-   DATABASE_URL="postgresql://postgres:11111@localhost:5432/video_service?schema=public"
-   JWT_SECRET='video-secret'
-   JWT_REFRESH_SECRET='video-secret'
+   DATABASE_URL=""
+   JWT_SECRET=''
+   JWT_REFRESH_SECRET=''
    JWT_EXPIRES_IN=1d
    JWT_REFRESH_EXPIRES_IN=365d
    VIDEO_COMPRESSED_DIR='http://localhost:5000/uploads/compressed'
-   CLOUDINARY_CLOUD_NAME='dukinbgee'
-   CLOUDINARY_API_KEY='177946576474248'
-   CLOUDINARY_API_SECRET='9_jFRnOEilzJ3pYi4n1PYbf-39A'
+   CLOUDINARY_CLOUD_NAME=''
+   CLOUDINARY_API_KEY=''
+   CLOUDINARY_API_SECRET=''
    REDIS_URL='redis://localhost:6379'
    REDIS_EXPIRATION_TIME=846000
    ```
