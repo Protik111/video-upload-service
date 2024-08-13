@@ -4,7 +4,11 @@ This service allows users to upload videos, convert them into HLS format, and ad
 
 ## HLD
 
-![Video Upload Service Diagram](hld.png)
+![Video Upload Service Diagram](./hld/hld.png)
+
+# HLD Video
+
+[Watch the demo video](./videos/demo.mp4)
 
 ## Features
 
