@@ -33,13 +33,18 @@ const upload = multer({ storage })
 
 //redis rate limiter
 const rateLimiter = rateLimit({
-  store: new RedisStore({
-    sendCommand: (...args: string[]) =>
-      RedisClient.redisClient.sendCommand(args),
-  }),
-  windowMs: 5 * 1000, // 5 seconds
-  max: 2, // Limit each IP to 100 requests per windowMs
-  message: 'Too many requests, please try again later.',
+  windowMs: 5000,
+  limit: 3,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+
+  handler: (req, res /* next */) => {
+    res.status(429).json({
+      status: 'error',
+      message: 'Too many requests, please try again later.',
+      retryAfter: res.getHeader('Retry-After'),
+    })
+  },
 })
 
 export const VideoMiddlewares = {

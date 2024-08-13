@@ -8,7 +8,7 @@ import { VideoMiddlewares } from './video.middlewares'
 
 const router = Router()
 
-router.get('/:id', VideoController.getVideoById)
+router.get('/:id', VideoMiddlewares.rateLimiter, VideoController.getVideoById)
 
 router.post(
   '/upload',
