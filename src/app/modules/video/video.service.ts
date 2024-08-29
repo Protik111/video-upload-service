@@ -147,7 +147,22 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
   // return data
 }
 
+const getVideos = async (): Promise<IFielPath | null> => {
+  const videos = await prisma.video.findMany()
+
+  if (videos.length === 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Video not found')
+  }
+
+  const data = {
+    videos,
+  }
+
+  return data
+}
+
 export const VideoService = {
   uploadVideo,
   getVideoById,
+  getVideos,
 }

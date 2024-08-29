@@ -33,7 +33,18 @@ const getVideoById = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const getVideos = catchAsync(async (req: Request, res: Response) => {
+  const result = await VideoService.getVideos()
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Video fetched successfully',
+    data: result,
+  })
+})
+
 export const VideoController = {
   uploadVideo,
   getVideoById,
+  getVideos,
 }
