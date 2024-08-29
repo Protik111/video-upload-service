@@ -52,7 +52,7 @@ export default {
       },
       colors: {
         dark: '#0d0d0d',
-        theme: '#f9020b',
+        theme: '#636FEF',
         flashWhite: '#f1f1f1',
         darkRaisin: '#272727',
         lightGray: '#6B7D94',

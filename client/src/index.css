@@ -84,7 +84,7 @@
       @apply bg-white dark:bg-gray-900 dark:border-gray-900 hover:bg-gray-100 text-[1.6rem] py-5 px-4 border border-gray-400 rounded flex items-center justify-center gap-x-6;
     }
     .btn-dark-full {
-      @apply w-full bg-black text-white shadow-none outline-none p-3.5 px-6 leading-normal rounded-md text-regular;
+      @apply w-full bg-theme text-white shadow-none outline-none p-3.5 px-6 leading-normal rounded-md text-regular;
     }
     .nav-tabs button[area-selected="true"] {
       @apply bg-theme;
