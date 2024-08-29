@@ -6,6 +6,7 @@ import Spinner from '../components/ui/Spinner'
 import { AxiosError } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import Header from '../components/shared/Header'
 
 interface State {
   email: string
@@ -76,6 +77,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="main_content mt-[4.2rem] py-10">
+      <Header />
       <div className="container">
         <div className="form_wrapper px-6 py-10 lg:py-12 xl:py-15">
           <form className="max-w-28rem mx-auto mb-0" onSubmit={handleLogin}>
