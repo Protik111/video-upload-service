@@ -1,68 +1,157 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/*------------------------------------------------------------------
+[4. Tailwind Base Layer]
+------------------------------------------------------------------*/
+@layer base {
+    html {
+      /* @apply [&.lang-EN]:font-sans [&.lang-BN]:font-bangla; */
+    }
+    html.lang-EN h1,
+    html.lang-EN h2,
+    html.lang-EN h3,
+    html.lang-EN h4,
+    html.lang-EN h5,
+    html.lang-EN h6 {
+      @apply font-heading;
+    }
+    body {
+      @apply leading-[1.7] overflow-x-hidden;
+    }
+  
+    svg,
+    img {
+      @apply inline;
+    }
+    label {
+      @apply inline-block leading-none;
+    }
+    p {
+      @apply text-black dark:text-white leading-[2em];
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      -webkit-text-fill-color: black;
+      -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+    html.dark input:-webkit-autofill,
+    html.dark input:-webkit-autofill:hover,
+    html.dark input:-webkit-autofill:focus,
+    html.dark textarea:-webkit-autofill,
+    html.dark textarea:-webkit-autofill:hover,
+    html.dark textarea:-webkit-autofill:focus,
+    html.dark select:-webkit-autofill,
+    html.dark select:-webkit-autofill:hover,
+    html.dark select:-webkit-autofill:focus {
+      -webkit-text-fill-color: white;
+      -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+      @apply outline-0 focus:outline-offset-0 shadow-none focus:ring-0 bg-white dark:bg-darkRaisin dark:text-white border border-black/50 dark:border-white/70 focus:border-theme w-full rounded-md text-regular px-4 py-3 xl:py-4 leading-[normal] font-sans;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      @apply absolute inset-0 w-full h-full opacity-0;
+    }
+    .form-check input {
+      @apply hidden;
+    }
+    .stretched-link::before {
+      @apply absolute inset-0 z-[1] content-[''];
+    }
   }
-  a:hover {
-    color: #747bff;
+  /*------------------------------------------------------------------
+  [5. Custom Components Layer]
+  ------------------------------------------------------------------*/
+  @layer components {
+    .btn-elevated {
+      @apply bg-white dark:bg-gray-900 dark:border-gray-900 hover:bg-gray-100 text-[1.6rem] py-5 px-4 border border-gray-400 rounded flex items-center justify-center gap-x-6;
+    }
+    .btn-dark-full {
+      @apply w-full bg-black text-white shadow-none outline-none p-3.5 px-6 leading-normal rounded-md text-regular;
+    }
+    .nav-tabs button[area-selected="true"] {
+      @apply bg-theme;
+    }
   }
-  button {
-    background-color: #f9f9f9;
+  /*------------------------------------------------------------------
+  [6. Custom Utilities Layer]
+  ------------------------------------------------------------------*/
+  @layer utilities {
+    .breakingSlider .swiper-wrapper {
+      @apply ease-linear;
+    }
+    .breakingSlider .swiper-slide {
+      @apply w-auto;
+    }
+    .lazy-load-image-background.blur.lazy-load-image-loaded {
+      @apply !flex;
+    }
+  
+    .scrollbar::-webkit-scrollbar {
+      width: 15px;
+      height: 15px;
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+      border-radius: 100vh;
+      background: #f7f4ed;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 100vh;
+      border: 3px solid #f6f7ed;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #c0a0b9;
+    }
+  
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
   }
-}
+  /*------------------------------------------------------------------
+  [7. Custom Styles]
+  ------------------------------------------------------------------*/
+  
+  .position-center {
+    @apply absolute -translate-x-1/2 -translate-y-1/2 top-13 md:top-1/2 left-1/2;
+  }
+  .position-category-text {
+    @apply absolute -translate-x-1/2 -translate-y-1/2 bottom-14 left-1/2;
+  }
+  .topbutton {
+    @apply fixed right-4 xl:right-7 2xl:right-16 bottom-6 xl:bottom-10 w-13 h-13 text-lg rounded-full bg-white dark:bg-neutral-800 shadow-sm shadow-slate-400 dark:shadow-neutral-800 hidden md:grid place-content-center  opacity-0 invisible transition duration-200 [&.btn-show]:opacity-100 [&.btn-show]:visible z-[9999];
+  }
+  .ReactModal__Content::-webkit-scrollbar {
+    @apply hidden;
+  }
+  .ReactModal__Content {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
