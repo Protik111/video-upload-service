@@ -5,12 +5,17 @@ import VideosUpload from './pages/VideosUpload'
 import AllVideos from './pages/AllVideos'
 import 'react-loading-skeleton/dist/skeleton.css'
 import SingleVideo from './pages/SingleVideo'
+import PrivateRoute from './components/PrivateRoute'
 
 const App: React.FC = () => {
   return (
     <Routes>
+      <Route path="/" element={<AllVideos />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/video-upload" element={<VideosUpload />} />
+      <Route
+        path="/video-upload"
+        element={<PrivateRoute element={<VideosUpload />} />}
+      />
       <Route path="/videos" element={<AllVideos />} />
       <Route path="/video/:id" element={<SingleVideo />} />
     </Routes>

@@ -6,13 +6,15 @@ const Header: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 bg-white py-3.5 shadow-md shadow-black/10 z-[1024] dark:bg-darkRaisin">
       <div className="container lg:flex justify-between md:items-center">
         <div className="brand-logo text-center">
-          <img
-            src="/assets/logo.png"
-            className="w-16 lg:w-24 dark:hidden"
-            alt="shironam.com"
-            width="138"
-            height="52"
-          />
+          <Link to="/">
+            <img
+              src="/assets/logo.png"
+              className="w-16 lg:w-24 dark:hidden"
+              alt="shironam.com"
+              width="138"
+              height="52"
+            />
+          </Link>
         </div>
 
         <div className="right_nav_controls self-center max-lg:-mt-8">
