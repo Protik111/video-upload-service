@@ -17,22 +17,22 @@ const Header: React.FC = () => {
 
         <div className="right_nav_controls self-center max-lg:-mt-8">
           <ul className="flex flex-row items-center gap-2 sm:gap-4 md:gap-4 dark:text-white">
-            <li className="ml-auto hover:border border-theme px-4 py-1 rounded-full cursor-pointer">
-              <Link to="/videos" className="text-md dark:text-white">
+            <Link to="/videos" className="text-md dark:text-white">
+              <li className="ml-auto hover:border border-theme px-4 py-1 rounded-full cursor-pointer">
                 <span>Videos</span>
-              </Link>
-            </li>
-            <li className="ml-auto hover:border border-theme px-4 py-1 rounded-full cursor-pointer">
-              <Link to="/video-upload" className="text-md dark:text-white">
+              </li>
+            </Link>
+            <Link to="/video-upload" className="text-md dark:text-white">
+              <li className="ml-auto hover:border border-theme px-4 py-1 rounded-full cursor-pointer">
                 <span>Upload</span>
-              </Link>
-            </li>
+              </li>
+            </Link>
 
-            <li className="ml-auto border border-theme px-4 py-1 rounded-full cursor-pointer">
-              <Link to="/login" className="text-md dark:text-white">
+            <Link to="/login" className="text-md dark:text-white">
+              <li className="ml-auto border border-theme px-4 py-1 rounded-full cursor-pointer">
                 <span>Login</span>
-              </Link>
-            </li>
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

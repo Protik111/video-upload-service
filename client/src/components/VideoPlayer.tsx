@@ -39,12 +39,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ hlsUrl }) => {
   }, [hlsUrl])
 
   return (
-    <div className="video-container">
+    <div className="video-container mx-auto">
       <video
         ref={videoRef}
         controls
         style={{ width: '100%', height: 'auto' }}
         playsInline
+        className="rounded-md w-full h-[400px]"
       />
     </div>
   )
