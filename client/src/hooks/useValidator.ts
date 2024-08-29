@@ -3,7 +3,10 @@ import { useState } from 'react'
 interface State {
   email?: string
   password?: string
-  [key: string]: string | undefined
+  pulse?: File | null
+  title?: string
+  description?: string
+  [key: string]: string | undefined | File | null
 }
 interface CustomMessages {
   [key: string]: string
@@ -34,7 +37,13 @@ const useValidator = () => {
     const error: State = {}
 
     for (const key in fields) {
-      if (!fields[key]) {
+      const value = fields[key]
+
+      if (
+        value === undefined ||
+        value === null ||
+        (typeof value === 'string' && value.trim() === '')
+      ) {
         const defaultMessage = `${camelCaseToCapitalized(key)} is required!`
         const message = customMessages[key] || defaultMessage
         error[key] = message

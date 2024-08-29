@@ -1,22 +1,28 @@
 import React, { useState } from 'react'
 import Header from '../components/shared/Header'
 import { toast, Toaster } from 'sonner'
+import useValidator from '../hooks/useValidator'
+import { AxiosError } from 'axios'
+import axiosInstance from '../lib/axios'
+import Spinner from '../components/ui/Spinner'
 
 const VideosUpload: React.FC = () => {
-  const [pulse, setPulse] = useState(null)
+  const [pulse, setPulse] = useState<File | null>(null)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [videoPreview, setVideoPreview] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleDrop = e => {
+  const { errors, validate } = useValidator()
+
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault()
     const files = e.dataTransfer.files
     console.log('files', files)
     handleFile(files)
   }
 
-  const handleFile = files => {
+  const handleFile = (files: FileList) => {
     const MAX_FILE_SIZE = 10 * 1024 * 1024 // 2 MB in bytes
 
     if (files.length > 0) {
@@ -37,11 +43,11 @@ const VideosUpload: React.FC = () => {
     }
   }
 
-  const isVideo = file => {
+  const isVideo = (file: File) => {
     return file.type.startsWith('video/')
   }
 
-  const handleDragOver = e => {
+  const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault()
 
     if (
@@ -59,19 +65,72 @@ const VideosUpload: React.FC = () => {
     }
   }
 
-  const handleFileChange = e => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    handleFile(files)
+    if (files) {
+      handleFile(files)
+    }
   }
 
-  const postPulse = async () => {}
+  const uploadVideo = async () => {
+    const customMessages = {
+      pulse: 'Video is required!',
+      title: 'Title is required!',
+      description: 'Description is required!',
+    }
+
+    const { isError } = validate({ pulse, title, description }, customMessages)
+
+    if (isError) {
+      return
+    }
+
+    const formData = new FormData()
+    if (pulse) {
+      formData.append('video', pulse)
+    }
+    formData.append('title', title)
+    formData.append('description', description)
+
+    try {
+      setIsLoading(true)
+
+      const response = await axiosInstance.post('/video/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+
+      if (response?.data?.statusCode === 201) {
+        console.log(response?.data)
+        toast.success(response?.data?.message)
+        setPulse(null)
+        setTitle('')
+        setDescription('')
+        setVideoPreview('')
+      }
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message?: string }>
+
+      if (error) {
+        console.log(error)
+        toast.error(
+          axiosError?.response?.data?.message ?? 'Error to uplaod. Try again!',
+        )
+      } else {
+        toast.error('An unexpected error occurred.')
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="main_content mt-[4.2rem] py-10">
       <Header />
 
       <div className="px-6 flex flex-col h-full">
-        <div className="mx-auto">
+        <div className="mx-auto text-left">
           <p className="text-sm font-normal text-[#607085] text-left">
             Add Video Here
             <span className="text-[#F9020B]"> *</span>
@@ -130,9 +189,10 @@ const VideosUpload: React.FC = () => {
               accept="video/mp4,video/webm,video/ogg"
             />
           </label>
-          {/* {errors?.pulse && (
-          <span className="text-red-600 text-sm">{errors?.pulse}</span>
-        )} */}
+          <br />
+          {errors?.pulse && (
+            <span className="text-red-600 text-sm">{errors?.pulse}</span>
+          )}
         </div>
         <div className="w-full mt-4 m-auto h-full text-left">
           <label className="text-sm font-normal text-[#607085]">
@@ -147,9 +207,9 @@ const VideosUpload: React.FC = () => {
             value={title}
             onChange={e => setTitle(e.target.value)}
           />
-          {/* {errors?.title && (
-          <span className="text-red-600 text-sm">{errors?.title}</span>
-        )} */}
+          {errors?.title && (
+            <span className="text-red-600 text-sm">{errors?.title}</span>
+          )}
         </div>
 
         <div className="w-full mt-4 m-auto h-full text-left">
@@ -165,28 +225,24 @@ const VideosUpload: React.FC = () => {
             value={description}
             onChange={e => setDescription(e.target.value)}
           />
-          {/* {errors?.description && (
-          <span className="text-red-600 text-sm">{errors?.description}</span>
-        )} */}
+          {errors?.description && (
+            <span className="text-red-600 text-sm">{errors?.description}</span>
+          )}
         </div>
 
-        {/* button container */}
         <div className="flex justify-end mt-8 gap-6 sticky bottom-0 py-6 z-50 bg-white">
           <button
-            onClick={postPulse}
+            onClick={uploadVideo}
             type="submit"
             className={`font-semibold rounded-md text-base py-3 px-8 text-white bg-theme ${
               isLoading ? 'cursor-progress' : 'cursor-pointer'
             }`}
             disabled={isLoading}
           >
-            {isLoading ? 'Uploading' : 'Upload'}
+            {isLoading ? <Spinner /> : 'Upload'}
           </button>
         </div>
 
-        {/* {postError && (
-        <div className="text-red-600 text-sm mt-2">{postError}</div>
-      )} */}
         <Toaster position="top-center" richColors></Toaster>
       </div>
     </div>

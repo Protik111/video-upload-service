@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(
   config => {
     const token = Cookies.get('user-cred')
     if (token) {
-      config.headers.Authorization = token
+      config.headers.Authorization = `Bearer ${token}`
     }
 
     return config
