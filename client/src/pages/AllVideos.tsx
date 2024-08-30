@@ -31,7 +31,6 @@ const AllVideos: React.FC = () => {
         }
       } catch (err) {
         console.log(err)
-        setError('An error occurred while fetching videos')
       } finally {
         setLoading(false)
       }
@@ -72,31 +71,51 @@ const AllVideos: React.FC = () => {
     <div className="main_content mt-[4.2rem] py-10">
       <Header />
       <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(400px,1fr))]">
-        {videos.map(video => (
-          <div key={video.id} className="relative">
-            <div>
-              <video
-                ref={el => (videoRefs.current[video.id] = el)}
-                style={{ pointerEvents: 'none' }}
-                className="rounded-md w-full h-[400px] object-cover"
-              />
-              <Link
-                to={`/video/${video.id}`}
-                className="absolute inset-0"
-                onClick={() => console.log('Navigating to video ID:', video.id)}
-              />
-            </div>
-            <div className="flex justify-start">
+        {videos?.length > 0 &&
+          videos?.map(video => (
+            <div key={video.id} className="relative">
               <div>
-                <p className="font-semibold text-lg">{video?.title}</p>
-                <p className="text-secondary-text text-sm">
-                  Uploaded on: {new Date(video.createdAt).toLocaleDateString()}
-                </p>
+                <video
+                  ref={el => (videoRefs.current[video.id] = el)}
+                  style={{ pointerEvents: 'none' }}
+                  className="rounded-md w-full h-[400px] object-cover"
+                />
+                <Link
+                  to={`/video/${video.id}`}
+                  className="absolute inset-0"
+                  onClick={() =>
+                    console.log('Navigating to video ID:', video.id)
+                  }
+                />
+              </div>
+              <div className="flex justify-start">
+                <div>
+                  <p className="font-semibold text-lg">{video?.title}</p>
+                  <p className="text-secondary-text text-sm">
+                    Uploaded on:{' '}
+                    {new Date(video.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
+
+      {videos?.length === 0 && (
+        <div className="flex justify-center flex-col items-center">
+          <p className="text-secondary-text text-xl">
+            There is no video to play!
+          </p>
+          <Link to="/video-upload">
+            <button
+              type="submit"
+              className="btn-dark-full relative text-regular max-w-max mt-4"
+            >
+              Upload & Play &rarr;
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
