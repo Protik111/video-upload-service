@@ -54,16 +54,14 @@ const Login: React.FC = () => {
 
         if (response?.data?.statusCode === 200) {
           Cookies.set('user-cred', response?.data?.data?.accessToken)
-          setTimeout(() => {
-            navigate('/')
-          }, 500)
+          navigate('/')
         }
       } catch (error) {
-        const axiosError = error as AxiosError<{ data?: { message: string } }>
+        const axiosError = error as AxiosError<{ message: string }>
         if (error) {
           console.log(error)
           toast.error(
-            axiosError?.response?.data?.data?.message ??
+            axiosError?.response?.data?.message ??
               'Error on sign in. Try again!',
           )
         } else {

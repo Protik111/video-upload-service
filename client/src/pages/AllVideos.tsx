@@ -68,7 +68,6 @@ const AllVideos: React.FC = () => {
     return <div>Error: {error}</div>
   }
 
-  console.log('videos', videos)
   return (
     <div className="main_content mt-[4.2rem] py-10">
       <Header />

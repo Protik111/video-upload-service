@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
+import UserData from '../UserData'
 
 const Header: React.FC = () => {
+  const token = Cookies.get('user-cred')
+
   return (
     <header className="fixed top-0 left-0 right-0 bg-white py-3.5 shadow-md shadow-black/10 z-[1024] dark:bg-darkRaisin">
       <div className="container lg:flex justify-between md:items-center">
@@ -30,11 +34,15 @@ const Header: React.FC = () => {
               </li>
             </Link>
 
-            <Link to="/login" className="text-md dark:text-white">
-              <li className="ml-auto border border-theme px-4 py-1 rounded-full cursor-pointer">
-                <span>Login</span>
-              </li>
-            </Link>
+            {token ? (
+              <UserData />
+            ) : (
+              <Link to="/login" className="text-md dark:text-white">
+                <li className="ml-auto border border-theme px-4 py-1 rounded-full cursor-pointer">
+                  <span>Login</span>
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
       </div>
