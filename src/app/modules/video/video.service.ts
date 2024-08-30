@@ -1,5 +1,5 @@
 import { Video } from '@prisma/client'
-import { IFielPath, IUplaodVideo } from './video.interface'
+import { IFielPath, IUplaodVideo, IVideoResponse } from './video.interface'
 import prisma from '../../../shared/prisma'
 import ApiError from '../../../errors/ApiError'
 import httpStatus from 'http-status'
@@ -147,11 +147,11 @@ const getVideoById = async (id: string): Promise<IFielPath | null> => {
   // return data
 }
 
-const getVideos = async (): Promise<IFielPath | null> => {
+const getVideos = async (): Promise<IVideoResponse | null> => {
   const videos = await prisma.video.findMany()
 
-  if (videos.length === 0) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Video not found')
+  if (videos?.length === 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Videos not found')
   }
 
   const data = {

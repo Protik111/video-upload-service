@@ -16,3 +16,16 @@ export type IUploadResponse = {
 export type IFielPath = {
   filePath: string
 }
+
+type IVideo = {
+  id: string
+  title: string
+  description: string
+  filePath: string
+  createdAt: Date
+  userId: string
+}
+
+export type IVideoResponse = {
+  videos: IVideo[]
+}
