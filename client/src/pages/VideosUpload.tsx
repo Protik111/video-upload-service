@@ -178,7 +178,7 @@ const VideosUpload: React.FC = () => {
                       Click to upload
                     </span>{' '}
                     or drag and drop <br /> MP4, AVI, MOV, WMV, MKV, and FLV
-                    (max 1080x1920px)
+                    (max 10MB)
                   </p>
                 </div>
               </>
