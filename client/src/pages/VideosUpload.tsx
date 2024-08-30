@@ -74,12 +74,15 @@ const VideosUpload: React.FC = () => {
 
   const uploadVideo = async () => {
     const customMessages = {
-      pulse: 'Video is required!',
+      videoPreview: 'Video is required!',
       title: 'Title is required!',
       description: 'Description is required!',
     }
 
-    const { isError } = validate({ pulse, title, description }, customMessages)
+    const { isError } = validate(
+      { videoPreview, title, description },
+      customMessages,
+    )
 
     if (isError) {
       return
@@ -190,8 +193,8 @@ const VideosUpload: React.FC = () => {
             />
           </label>
           <br />
-          {errors?.pulse && (
-            <span className="text-red-600 text-sm">{errors?.pulse}</span>
+          {errors?.videoPreview && (
+            <span className="text-red-600 text-sm">{errors?.videoPreview}</span>
           )}
         </div>
         <div className="w-full mt-4 m-auto h-full text-left">

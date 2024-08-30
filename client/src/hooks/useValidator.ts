@@ -3,11 +3,12 @@ import { useState } from 'react'
 interface State {
   email?: string
   password?: string
-  pulse?: File | null
+  pulse?: string | null // Changed from File to string
   title?: string
   description?: string
-  [key: string]: string | undefined | File | null
+  [key: string]: string | undefined | null
 }
+
 interface CustomMessages {
   [key: string]: string
 }
@@ -21,7 +22,6 @@ const useValidator = () => {
   const [errors, setErrors] = useState<State>({})
 
   const camelCaseToCapitalized = (str: string): string => {
-    // Convert camelCase to space-separated words and capitalize each word
     return str
       .replace(/([A-Z])/g, ' $1')
       .replace(/^./, str => str.toUpperCase())
