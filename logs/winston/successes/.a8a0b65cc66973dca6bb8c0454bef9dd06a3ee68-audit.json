@@ -6,24 +6,9 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\.a8a0b65cc66973dca6bb8c0454bef9dd06a3ee68-audit.json",
     "files": [
         {
-            "date": 1724917346615,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-29-08-13-success.log",
-            "hash": "bb2957b99d50d1d128f36c541c40d67108f036797342190a9ef09aa076ca47c2"
-        },
-        {
-            "date": 1724953403310,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-29-08-23-success.log",
-            "hash": "2e437bc664fa0e5655f646d5f4af66b06354b03eedaa66d989ec03d949127317"
-        },
-        {
-            "date": 1724993485382,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-30-08-10-success.log",
-            "hash": "100213a104e78706c04ac154e0b8da7179e5ab0edf8f270147cd5b1f6529e104"
-        },
-        {
-            "date": 1724996566344,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-30-08-11-success.log",
-            "hash": "cb34fbc5e6aff53603e725d11b104604e87b50e18636b4ed41549527ea40a409"
+            "date": 1734527586875,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\successes\\phu-2024-18-12-19-success.log",
+            "hash": "69090412e426c9fe1f07e65da06a1a8ae18caf0bf524dfd0c2303c0fd208cf6c"
         }
     ],
     "hashType": "sha256"

@@ -6,24 +6,9 @@
     "auditLog": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\.f3d5438e638d36a668d3d12c68da5975e4cf283b-audit.json",
     "files": [
         {
-            "date": 1724917346620,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-29-08-13-error.log",
-            "hash": "604685d31218bf04990088ec3950f75779e4bfc91e778412d2c1a21e495273cd"
-        },
-        {
-            "date": 1724953403315,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-29-08-23-error.log",
-            "hash": "285ec87fdfa614e875b7dccaff85682408fb2dd959f3fc14b576a5a3c93105b6"
-        },
-        {
-            "date": 1724993485386,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-30-08-10-error.log",
-            "hash": "d9db4a7e745910f3f636cfe62103f37251c00881844bd0ae5e3e2ec32d784ee6"
-        },
-        {
-            "date": 1724996566347,
-            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-30-08-11-error.log",
-            "hash": "5c02671f7e7d2fb2b77a73033d8698fc3ba0139a53925c515fe9bc783b14bb49"
+            "date": 1734527586881,
+            "name": "C:\\Users\\rafiu\\OneDrive\\Desktop\\My_Resources\\My_Files\\Learning_Dev_Resources\\Courses\\Backend Engineering - Poridhi\\Projects\\video-upload-service\\logs\\winston\\errors\\phu-2024-18-12-19-error.log",
+            "hash": "f5172a931bebc91db4c521b3ddfe1a76ec792d6c17e9c91172a4181747b398d1"
         }
     ],
     "hashType": "sha256"
